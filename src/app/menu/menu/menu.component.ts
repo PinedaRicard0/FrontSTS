@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Category } from 'src/app/models/category.model';
 
 @Component({
   selector: 'app-menu',
@@ -7,11 +8,22 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 })
 export class MenuComponent implements OnInit {
 
+  teamCategorySelected: string = 'Male'
+  categories: Category[] = [
+    new Category('Male', 'Permite únicamente jugar personas del género masculino'),
+    new Category('Female', 'Permite únicamente jugar personas del género femenimo'),
+    new Category('Mixed', 'Permite jugar personas de cualquier género')
+  ];
   @ViewChild('teams') teamB: ElementRef;
   @ViewChild('fields') fieldB: ElementRef;
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onTeamCategorySelected(category: string)
+  {
+    this.teamCategorySelected = category;
   }
 
   onMenuButtonClick(option: string){

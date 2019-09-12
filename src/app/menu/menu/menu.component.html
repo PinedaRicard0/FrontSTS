@@ -1,24 +1,11 @@
 <div class="wrapper">
-    <!-- Sidebar -->
     <nav id="sidebar">
-        
         <button class="menu-drop btn dropdown-toggle btn-dark" data-toggle="collapse" data-target="#teams"
         (click)="onMenuButtonClick('teams')">
             Teams
         </button>
         <div id="teams" class="collapse" #teams>
-            <a href="#" class="dropdown-item">Male</a>
-            <a href="#" class="dropdown-item">Female</a>
-            <a href="#" class="dropdown-item">Mixed</a>
-        </div>
-        <button class="menu-drop btn dropdown-toggle btn-dark" data-toggle="collapse" data-target="#fields"
-        (click)="onMenuButtonClick('fields')">
-            Fields
-        </button>
-        <div id="fields" class="collapse" #fields>
-            <a href="#" class="dropdown-item">1</a>
-            <a href="#" class="dropdown-item">2</a>
-            <a href="#" class="dropdown-item">2</a>
+            <a href="#" class="dropdown-item" *ngFor="let c of categories">{{c.name}}</a>
         </div>
     </nav>
 </div>

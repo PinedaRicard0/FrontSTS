@@ -5,6 +5,8 @@ import { Routes} from '@angular/router';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { MenuComponent } from './menu/menu/menu.component';
+import { TeamComponent } from './main/team/team.component';
+import { AppRoutingModule } from './app-routing.module';
 
 // const appRoutes: Routes = [
 //   {
@@ -16,10 +18,12 @@ import { MenuComponent } from './menu/menu/menu.component';
   declarations: [
     AppComponent,
     HeaderComponent,
-    MenuComponent
+    MenuComponent,
+    TeamComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

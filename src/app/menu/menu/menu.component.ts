@@ -10,9 +10,9 @@ export class MenuComponent implements OnInit {
 
   teamCategorySelected: string = 'Male'
   categories: Category[] = [
-    new Category('Male', 'Permite únicamente jugar personas del género masculino'),
-    new Category('Female', 'Permite únicamente jugar personas del género femenimo'),
-    new Category('Mixed', 'Permite jugar personas de cualquier género')
+    new Category(1,'Male', 'Permite únicamente jugar personas del género masculino'),
+    new Category(2,'Female', 'Permite únicamente jugar personas del género femenimo'),
+    new Category(3,'Mixed', 'Permite jugar personas de cualquier género')
   ];
   @ViewChild('teams') teamB: ElementRef;
   @ViewChild('fields') fieldB: ElementRef;

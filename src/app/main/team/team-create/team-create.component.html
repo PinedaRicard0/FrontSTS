@@ -1,16 +1,19 @@
 <div class="container mt-4">
-  <form class="form-row">
+  <form class="form-row"
+    (ngSubmit)="onSubmit(f)" #f="ngForm">
     <div class="form-group col-md-6">
         <label for="teamName">Team Name</label>
-        <input type="text" class="form-control" id="teamName" placeholder="Enter the team name">
+        <input type="text" name="teamName" class="form-control" id="teamName" placeholder="Enter the team name"
+          required ngModel>
     </div>
     <div class="form-group col-md-6">
         <label for="teamPool">Select Pool</label>
-        <select class="form-control" id="teamPool">
-          <option>1</option>
-          <option>2</option>
+        <select required name="teamPool" class="form-control" id="teamPool"
+          ngModel>
+          <option value="a">A</option>
+          <option value="b">B</option>
         </select>
       </div>
-    <button type="submit" class="btn btn-primary mt-2">Save</button>
+    <button [disabled]="!f.valid" type="submit" class="btn btn-primary mt-2">Save</button>
   </form>
 </div>

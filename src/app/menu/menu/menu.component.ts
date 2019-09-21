@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Category } from 'src/app/models/category.model';
+import { CategoriesService } from 'src/app/services/categories.service';
 
 @Component({
   selector: 'app-menu',
@@ -9,16 +10,12 @@ import { Category } from 'src/app/models/category.model';
 export class MenuComponent implements OnInit {
 
   teamCategorySelected: string = 'Male'
-  categories: Category[] = [
-    new Category(1,'Male', 'Permite únicamente jugar personas del género masculino'),
-    new Category(2,'Female', 'Permite únicamente jugar personas del género femenimo'),
-    new Category(3,'Mixed', 'Permite jugar personas de cualquier género')
-  ];
+  categories: Category[] = [];
   @ViewChild('teams') teamB: ElementRef;
-  @ViewChild('fields') fieldB: ElementRef;
-  constructor() { }
+  constructor(private categoryService: CategoriesService) { }
 
   ngOnInit() {
+    this.categoryService.fetchCategories();
   }
 
   onTeamCategorySelected(category: string)
@@ -27,6 +24,8 @@ export class MenuComponent implements OnInit {
   }
 
   onMenuButtonClick(option: string){
+    this.categories = this.categoryService.getCategories();
+    this.categoryService.getCategoryById(1);
     if(option == 'teams')
     {
       if(this.teamB.nativeElement.classList.contains('show')){
@@ -36,14 +35,5 @@ export class MenuComponent implements OnInit {
         this.teamB.nativeElement.classList.add('show')
       }
     }
-    else if(option == 'fields'){
-      if(this.fieldB.nativeElement.classList.contains('show')){
-        this.fieldB.nativeElement.classList.remove('show')
-      }
-      else{
-        this.fieldB.nativeElement.classList.add('show')
-      }
-    }
   }
-
 }

@@ -6,7 +6,8 @@
         </button>
         <div id="teams" class="collapse" #teams>
             <a class="dropdown-item"
-            *ngFor="let c of categories" routerLink="/teams/{{c.id}}">{{c.name}}</a>
+            *ngFor="let c of categories"
+            (click)="loadTeamsCategory(c.id)">{{c.name}}</a>
         </div>
     </nav>
 </div>

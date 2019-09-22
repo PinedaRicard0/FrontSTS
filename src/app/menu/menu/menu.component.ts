@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Category } from 'src/app/models/category.model';
 import { CategoriesService } from 'src/app/services/categories.service';
+import { Router } from '@angular/router';
+import { TeamsSevice } from 'src/app/services/teams.service';
 
 @Component({
   selector: 'app-menu',
@@ -12,7 +14,7 @@ export class MenuComponent implements OnInit {
   teamCategorySelected: string = 'Male'
   categories: Category[] = [];
   @ViewChild('teams') teamB: ElementRef;
-  constructor(private categoryService: CategoriesService) { }
+  constructor(private categoryService: CategoriesService, private router: Router, private ts: TeamsSevice) { }
 
   ngOnInit() {
     this.categoryService.fetchCategories();
@@ -35,5 +37,10 @@ export class MenuComponent implements OnInit {
         this.teamB.nativeElement.classList.add('show')
       }
     }
+  }
+
+  loadTeamsCategory(category: number){
+    this.ts.getTeamsByCategory(category);
+    this.router.navigate(['/teams/' + category]);
   }
 }

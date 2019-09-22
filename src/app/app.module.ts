@@ -9,6 +9,7 @@ import { MenuComponent } from './menu/menu/menu.component';
 import { TeamComponent } from './main/team/team.component';
 import { AppRoutingModule } from './app-routing.module';
 import { TeamCreateComponent } from './main/team/team-create/team-create.component';
+import { HomeComponent } from './main/home/home.component';
 
 // const appRoutes: Routes = [
 //   {
@@ -22,7 +23,8 @@ import { TeamCreateComponent } from './main/team/team-create/team-create.compone
     HeaderComponent,
     MenuComponent,
     TeamComponent,
-    TeamCreateComponent
+    TeamCreateComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

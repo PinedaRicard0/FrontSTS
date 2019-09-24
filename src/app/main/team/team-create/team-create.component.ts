@@ -30,9 +30,9 @@ export class TeamCreateComponent implements OnInit {
   }
 
   onSubmit(form: NgForm){
-    debugger;
     let team = new Team(1,form.value.teamName,parseInt(this.categoryId),form.value.teamPool);
     this.teamService.createTeam(team);
+    form.reset();
   }
 
 }

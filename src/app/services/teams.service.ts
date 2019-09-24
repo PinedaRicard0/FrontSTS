@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Team } from '../models/team.model';
@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
 @Injectable({providedIn: 'root'})
 export class TeamsSevice {
 
-    categoryTeams : Team[] = [];
+    categoryTeams = new EventEmitter<Team[]>();
 
 constructor(private http: HttpClient){}
 
@@ -19,13 +19,15 @@ constructor(private http: HttpClient){}
                 team
             )
             .subscribe(response => {
+                this.getTeamsByCategory(team.category);
             });
     }
 
+    //Populate categoryTeams attr according to category
     getTeamsByCategory(category: Number){
         this.http
             .get< {[key: string]: Team} >(
-                'https://sts-api-67d7d.firebaseio.com/teams.json'
+                'https://sts-api-67d7d.firebaseio.com/teams.json?orderBy="category"&equalTo=' + category
             )
             .pipe(
                 map(
@@ -40,10 +42,7 @@ constructor(private http: HttpClient){}
                 })
             )
             .subscribe(teams => {
-                this.categoryTeams = teams.filter((t) => {
-                    return t.category == category;
-                })
-                console.log(this.categoryTeams);
+                this.categoryTeams.emit(teams);
             })
     }
 }

@@ -11,7 +11,7 @@ export class CategoriesService {
 
     constructor(private http: HttpClient) { }
 
-    fetchCategories() {
+    public fetchCategories() {
         this.http
             .get<{ [key: string]: Category }>(
                 'https://sts-api-67d7d.firebaseio.com/categories.json'
@@ -28,7 +28,6 @@ export class CategoriesService {
                 })
             ).subscribe(categories => {
                 this.categories = categories;
-                return this.categories;
             });
     }
 

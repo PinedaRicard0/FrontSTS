@@ -14,20 +14,14 @@ export class MenuComponent implements OnInit {
   teamCategorySelected: string = 'Male'
   categories: Category[] = [];
   @ViewChild('teams') teamB: ElementRef;
-  constructor(private categoryService: CategoriesService, private router: Router, private ts: TeamsSevice) { }
+  constructor(private categoryService: CategoriesService, private router: Router) { }
 
   ngOnInit() {
     this.categoryService.fetchCategories();
   }
-
-  onTeamCategorySelected(category: string)
-  {
-    this.teamCategorySelected = category;
-  }
-
+  
   onMenuButtonClick(option: string){
     this.categories = this.categoryService.getCategories();
-    this.categoryService.getCategoryById(1);
     if(option == 'teams')
     {
       if(this.teamB.nativeElement.classList.contains('show')){
@@ -40,7 +34,6 @@ export class MenuComponent implements OnInit {
   }
 
   loadTeamsCategory(category: number){
-    this.ts.getTeamsByCategory(category);
     this.router.navigate(['/teams/' + category]);
   }
 }

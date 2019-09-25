@@ -1,6 +1,16 @@
 <router-outlet></router-outlet>
 <hr>
-<ul *ngIf="teamCategory.length > 0">
-    <li *ngFor="let c of teamCategory">{{c.name}} - pool {{c.pool | uppercase}}</li>
-</ul>
+<table *ngIf="teamCategory.length > 0">
+    <tr>
+        <th>Team Name</th>
+        <th>Team Pool</th>
+        <th></th>
+        <th></th>
+    </tr>
+    <tr *ngFor="let c of teamCategory">
+        <td>{{c.name}}</td>
+        <td>{{c.pool | uppercase}}</td>
+        <td></td>
+    </tr>
+</table>
 <p *ngIf="teamCategory.length <= 0">This category does not have teams</p>

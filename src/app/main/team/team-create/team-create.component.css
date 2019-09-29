@@ -5,3 +5,16 @@ input.ng-invalid.ng-touched{
 select.ng-invalid.ng-touched{
     border: 1px solid red;
 }
+
+ul{
+    padding: 0px;
+    margin-top: 3px;
+}
+#teamCreateCategory>li{
+    display: inline;
+}
+
+.liInput{
+    margin-left: 20px;
+    margin-right: 3px;
+}

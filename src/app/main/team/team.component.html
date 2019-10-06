@@ -5,12 +5,14 @@
         <th>Team Name</th>
         <th>Team Pool</th>
         <th></th>
-        <th></th>
     </tr>
     <tr *ngFor="let c of teamCategory">
         <td>{{c.name}}</td>
         <td>{{c.pool | uppercase}}</td>
-        <td></td>
+        <td>
+            <button type="button" value="Edit" (click)="onEditTeam(c.firebaseId)">Edit</button>
+            <!-- <a (click)="onEditTeam(c.firebaseId)" href>Edit</a> -->
+        </td>
     </tr>
 </table>
 <p *ngIf="teamCategory.length <= 0">This category does not have teams</p>

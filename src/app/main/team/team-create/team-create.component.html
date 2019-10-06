@@ -18,14 +18,21 @@
       <div class="form-group col-md-12">
         <span>Category</span>
         <div>
-          <ul id="teamCreateCategory">
-            <li *ngFor="let c of categories">
-              <input class="liInput" type="radio" name="category" [checked]="c.id == categoryId" value="{{c.id}}">{{c.name}}
+          <ul id="teamCreateCategory" *ngIf="!isEditing">
+            <li *ngFor="let c of categories" >
+              <input class="liInput" type="radio" name="category" [(ngModel)]="categoryId" value="{{c.id}}" required ngModel>{{c.name}}
             </li>
+          </ul>
+          <ul id="teamCreateCategory" *ngIf="isEditing">
+              <li *ngFor="let c of categories" >
+                <input class="liInput rara"  type="radio" name="category" [(ngModel)]="teamToEdit.category" value="{{c.id}}" required ngModel>{{c.name}}
+              </li>
           </ul>
         </div>
       </div>
     </div>
-    <button [disabled]="!f.valid" type="submit" class="btn btn-primary mt-2">Save</button>
+    <button *ngIf="!isEditing" [disabled]="!f.valid" type="submit" class="btn btn-primary mt-2">Save</button>
+    <button *ngIf="isEditing" [disabled]="!f.valid" type="submit" class="btn btn-primary mt-2">Edit</button>
+    <button *ngIf="isEditing" type="button" class="btn btn-danger mt-2 ml-3" (click)="onCancelEdit()">Cancel</button>
   </form>
 </div>

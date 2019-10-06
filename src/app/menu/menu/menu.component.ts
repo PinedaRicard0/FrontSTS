@@ -18,10 +18,13 @@ export class MenuComponent implements OnInit {
 
   ngOnInit() {
     this.categoryService.fetchCategories();
+    this.categoryService.categories.
+          subscribe(categories =>
+        this.categories = categories
+        );
   }
   
   onMenuButtonClick(option: string){
-    this.categories = this.categoryService.getCategories();
     if(option == 'teams')
     {
       if(this.teamB.nativeElement.classList.contains('show')){

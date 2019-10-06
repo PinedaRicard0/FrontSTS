@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
@@ -7,7 +7,7 @@ import { Category } from '../models/category.model';
 @Injectable({ providedIn: 'root' })
 export class CategoriesService {
 
-    categories: Category[] = [];
+    categories = new EventEmitter<Category[]>();
 
     constructor(private http: HttpClient) { }
 
@@ -27,17 +27,7 @@ export class CategoriesService {
                     return categoriesArray;
                 })
             ).subscribe(categories => {
-                this.categories = categories;
+                this.categories.emit(categories);
             });
-    }
-
-    public getCategories(){
-        return this.categories;
-    }
-
-    public getCategoryById(id: number){
-        return this.categories.filter((c) => {
-            return c.id == id;
-        });
     }
 }

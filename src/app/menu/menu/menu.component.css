@@ -3,3 +3,4 @@
 #sidebar {width: 100%;min-height: 90vh;background: grey;}
 #sidebar > button{text-align: left;}
 .dropdown-toggle::after{float: right;margin-top: 6%;}
+fa-icon{ margin-right: 5px; }

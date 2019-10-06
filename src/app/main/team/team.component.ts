@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { TeamsSevice } from 'src/app/services/teams.service';
 import { Team } from 'src/app/models/team.model';
+
+import { faPencilAlt, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-team',
@@ -9,6 +11,10 @@ import { Team } from 'src/app/models/team.model';
   styleUrls: ['./team.component.css']
 })
 export class TeamComponent implements OnInit {
+  //Icons
+  faEdit = faPencilAlt;
+  faAddUser = faUserPlus;
+  // End icons
 
   teamCategory: Team[] = [];
 
@@ -31,7 +37,7 @@ export class TeamComponent implements OnInit {
       {
         this.router.navigate(['/teams/' + this.teamCategory[0].category]);
       }
-    }) 
+    });
   }
 
   onEditTeam(id:string){

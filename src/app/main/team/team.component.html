@@ -10,8 +10,8 @@
         <td>{{c.name}}</td>
         <td>{{c.pool | uppercase}}</td>
         <td>
-            <button type="button" value="Edit" (click)="onEditTeam(c.firebaseId)">Edit</button>
-            <!-- <a (click)="onEditTeam(c.firebaseId)" href>Edit</a> -->
+            <button title="Edit team" class="btn btn-success icon" type="button" value="Edit" (click)="onEditTeam(c.firebaseId)"><fa-icon [icon]="faEdit"></fa-icon></button>
+            <button title="Add players" class="btn btn-dark icon" type="button"><fa-icon [icon]="faAddUser"></fa-icon></button>
         </td>
     </tr>
 </table>

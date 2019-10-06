@@ -3,10 +3,10 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
 import { Category } from '../models/category.model';
+import { Subject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class CategoriesService {
-
     categories = new EventEmitter<Category[]>();
 
     constructor(private http: HttpClient) { }

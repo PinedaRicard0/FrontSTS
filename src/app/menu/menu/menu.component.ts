@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Category } from 'src/app/models/category.model';
 import { CategoriesService } from 'src/app/services/categories.service';
 import { Router } from '@angular/router';
-import { TeamsSevice } from 'src/app/services/teams.service';
+import { faUsersCog } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-menu',
@@ -11,7 +11,9 @@ import { TeamsSevice } from 'src/app/services/teams.service';
 })
 export class MenuComponent implements OnInit {
 
-  teamCategorySelected: string = 'Male'
+  //Icons
+  faTeams = faUsersCog;
+  //End icons
   categories: Category[] = [];
   @ViewChild('teams') teamB: ElementRef;
   constructor(private categoryService: CategoriesService, private router: Router) { }

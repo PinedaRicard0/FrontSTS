@@ -22,7 +22,7 @@ export class TeamsSevice {
                 team
             )
             .subscribe(response => {
-                this.getTeamsByCategory(team.category);
+                this.getTeamsByCategory(parseInt(team.category));
             });
     }
 

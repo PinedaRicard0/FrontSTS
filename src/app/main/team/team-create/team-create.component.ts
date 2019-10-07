@@ -28,19 +28,22 @@ export class TeamCreateComponent implements OnInit, OnDestroy {
   ngOnInit() {
     //Se obtiene todas las categorías de la BD y se almacenan en categories
     this.cs.fetchCategories();
-    this.cs.categories.subscribe(categories =>
-      this.categories = categories)
-    //Se obtiene el parámetro de navegación de URL
-    this.categoryId = this.route.snapshot.params['categoryId'];
-    if (this.categoryId == null) {
-      this.categoryId = "1";
+    this.cs.categories.subscribe(categories => {
+      this.categories = categories;
+      //Se obtiene el parámetro de navegación de URL
+      this.categoryId = this.route.snapshot.params['categoryId'];
+      if (this.categoryId == null) {
+        this.categoryId = "1";
+      }
+      this.route.params
+        .subscribe(
+          (params: Params) => {
+            this.categoryId = params["categoryId"]
+          }
+        );
     }
-    this.route.params
-      .subscribe(
-        (params: Params) => {
-          this.categoryId = params["categoryId"]
-        }
-      );
+    )
+    
     //Cuando se selecciona editar un equipo se dispara el subject startedEditingTeam
     this.teamEditSubs =  this.teamService.startedEditingTeam
         .subscribe(
@@ -48,12 +51,17 @@ export class TeamCreateComponent implements OnInit, OnDestroy {
             this.teamService.getItemById(editItemId)
               .subscribe(
                 (team: Team) => {
+                  debugger;
+                  const stringCategory = team.category.toString();
+
                   this.isEditing = true;
                   this.teamToEdit = team;
+                  this.teamToEdit.category = stringCategory;
                   this.teamForm.setValue({
                     teamName: this.teamToEdit.name,
                     teamPool: this.teamToEdit.pool,
-                    category: this.teamToEdit.category.toString()
+                    category: stringCategory
+                    
                   })
                 }
               );
@@ -63,11 +71,11 @@ export class TeamCreateComponent implements OnInit, OnDestroy {
 
   onSubmit(form: NgForm) {
     if(!this.isEditing){
-      let team = new Team(1, form.value.teamName, parseInt(form.value.category), form.value.teamPool);
+      let team = new Team(1, form.value.teamName, form.value.category, form.value.teamPool);
       this.teamService.createTeam(team);
     }
     else{
-      this.teamToEdit.category = parseInt(form.value.category);
+      this.teamToEdit.category = form.value.category;
       this.teamToEdit.name = form.value.teamName;
       this.teamToEdit.pool = form.value.teamPool
       this.teamService.updateTeam(this.teamToEdit)

@@ -25,7 +25,7 @@
           </ul>
           <ul id="teamCreateCategory" *ngIf="isEditing">
               <li *ngFor="let c of categories" >
-                <input class="liInput rara"  type="radio" name="category" [(ngModel)]="teamToEdit.category" value="{{c.id}}" required ngModel>{{c.name}}
+                <input class="liInput"  type="radio" name="category" [(ngModel)]="teamToEdit.category" value="{{c.id}}" required ngModel>{{c.name}}
               </li>
           </ul>
         </div>

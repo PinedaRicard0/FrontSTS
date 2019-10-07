@@ -30,13 +30,14 @@ export class TeamComponent implements OnInit {
           this.ts.getTeamsByCategory(parseInt(params['categoryId']))
         }
       );
+
     this.ts.categoryTeams.subscribe(teams => {
       this.teamCategory = teams;
       //Se redirige la app a los elementos de la categoría del equipo recién creado
-      if(this.teamCategory.length > 0)
-      {
-        this.router.navigate(['/teams/' + this.teamCategory[0].category]);
-      }
+      // if(this.teamCategory.length > 0)
+      // {
+      //   this.router.navigate(['/teams/' + this.teamCategory[0].category]);
+      // }
     });
   }
 

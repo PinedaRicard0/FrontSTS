@@ -3,7 +3,9 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { TeamsSevice } from 'src/app/services/teams.service';
 import { Team } from 'src/app/models/team.model';
 
-import { faPencilAlt, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { faPencilAlt, faUserPlus, faLongArrowAltRight } from '@fortawesome/free-solid-svg-icons';
+import { CategoriesService } from 'src/app/services/categories.service';
+import { Category } from 'src/app/models/category.model';
 
 @Component({
   selector: 'app-team',
@@ -14,25 +16,30 @@ export class TeamComponent implements OnInit {
   //Icons
   faEdit = faPencilAlt;
   faAddUser = faUserPlus;
+  faGreaterThan = faLongArrowAltRight;
   // End icons
 
   teamCategory: Team[] = [];
+  categoryId : string;
+  currentCategory : Category;
 
-  constructor(private ts: TeamsSevice,
-    private route: ActivatedRoute,
-    private router: Router) { }
+  constructor(private ts: TeamsSevice, private cs : CategoriesService,
+    private route: ActivatedRoute) { }
     
 
   ngOnInit() {
     this.route.firstChild.params
       .subscribe(
         (params: Params) => {
-          this.ts.getTeamsByCategory(parseInt(params['categoryId']))
+          this.categoryId = params['categoryId'];
+          this.ts.getTeamsByCategory(params['categoryId']);
+          
         }
       );
 
     this.ts.categoryTeams.subscribe(teams => {
       this.teamCategory = teams;
+      this.currentCategory = this.cs.getCategoryById(this.categoryId);
       //Se redirige la app a los elementos de la categoría del equipo recién creado
       // if(this.teamCategory.length > 0)
       // {

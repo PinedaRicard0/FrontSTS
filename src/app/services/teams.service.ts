@@ -22,7 +22,7 @@ export class TeamsSevice {
                 team
             )
             .subscribe(response => {
-                this.getTeamsByCategory(parseInt(team.category));
+                this.getTeamsByCategory(team.category);
             });
     }
 
@@ -37,10 +37,10 @@ export class TeamsSevice {
     }
 
     //Populate categoryTeams attr according to category
-    getTeamsByCategory(category: Number) {
+    getTeamsByCategory(category: string) {
         this.http
             .get<{ [key: string]: Team }>(
-                'https://sts-api-67d7d.firebaseio.com/teams.json?orderBy="category"&equalTo=' + category
+                'https://sts-api-67d7d.firebaseio.com/teams.json?orderBy="category"&equalTo=' + '"' + category + '"'
             )
             .pipe(
                 map(

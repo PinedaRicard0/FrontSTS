@@ -51,7 +51,6 @@ export class TeamCreateComponent implements OnInit, OnDestroy {
             this.teamService.getItemById(editItemId)
               .subscribe(
                 (team: Team) => {
-                  debugger;
                   const stringCategory = team.category.toString();
 
                   this.isEditing = true;
@@ -80,7 +79,7 @@ export class TeamCreateComponent implements OnInit, OnDestroy {
       this.teamToEdit.pool = form.value.teamPool
       this.teamService.updateTeam(this.teamToEdit)
         .subscribe(team => {
-          this.teamService.getTeamsByCategory(parseInt(this.categoryId))
+          this.teamService.getTeamsByCategory(this.categoryId)
         });
       this.isEditing = false;
     }

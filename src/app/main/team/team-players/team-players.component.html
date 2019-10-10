@@ -1,6 +1,6 @@
 <div class="container">
-  <div class="row">
-    <button title="Add player" class="btn btn-success icon" type="button" ><fa-icon [icon]="faNew"></fa-icon></button>
+  <div class="row ml-1">
+    <button title="Add player" class="btn btn-primary icon" type="button" ><fa-icon [icon]="faNew"></fa-icon></button>
   </div>
   <div *ngIf="playerList.length > 0">
       <div class="mt-3 table-responsive">
@@ -16,7 +16,7 @@
                 <td>{{p.name}}</td>
                 <td>{{p.nickName}}</td>
                 <td>
-                    <button title="Edit player" class="btn btn-success icon" type="button"><fa-icon [icon]="faEdit"></fa-icon></button>
+                    <button title="Edit player" class="btn icon" type="button"><fa-icon [icon]="faEdit"></fa-icon></button>
                 </td>
               </tr>
           </table>

@@ -60,7 +60,7 @@ export class TeamsSevice {
             })
     }
 
-    getItemById(id: string) {
+    getTeamById(id: string) {
         let url = 'https://sts-api-67d7d.firebaseio.com/teams.json?orderBy="$key"&equalTo=' + '"' + id + '"';
         return this.http.get<{ [key: string]: Team }>(url)
             .pipe(

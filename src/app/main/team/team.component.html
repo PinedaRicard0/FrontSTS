@@ -9,7 +9,7 @@
             <tr>
                 <th>Team Name</th>
                 <th>Team Pool</th>
-                <th></th>
+                <th>Options</th>
             </tr>
         </thead>    
         <tr *ngFor="let c of teamCategory">
@@ -17,7 +17,7 @@
             <td>{{c.pool | uppercase}}</td>
             <td>
                 <button title="Edit team" class="btn btn-success icon" type="button" value="Edit" (click)="onEditTeam(c.firebaseId)"><fa-icon [icon]="faEdit"></fa-icon></button>
-                <button title="Add players" class="btn btn-dark icon" type="button"><fa-icon [icon]="faAddUser"></fa-icon></button>
+                <button title="Add players" class="btn btn-dark icon" type="button" (click)="onAddUser(c.firebaseId)"><fa-icon [icon]="faAddUser"></fa-icon></button>
             </td>
         </tr>
     </table>

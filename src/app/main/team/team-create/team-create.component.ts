@@ -48,7 +48,7 @@ export class TeamCreateComponent implements OnInit, OnDestroy {
     this.teamEditSubs =  this.teamService.startedEditingTeam
         .subscribe(
           (editItemId: string) => {
-            this.teamService.getItemById(editItemId)
+            this.teamService.getTeamById(editItemId)
               .subscribe(
                 (team: Team) => {
                   const stringCategory = team.category.toString();

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { TeamsSevice } from 'src/app/services/teams.service';
 import { Team } from 'src/app/models/team.model';
@@ -24,7 +24,7 @@ export class TeamComponent implements OnInit {
   currentCategory : Category;
 
   constructor(private ts: TeamsSevice, private cs : CategoriesService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute, private router : Router) { }
     
 
   ngOnInit() {
@@ -50,6 +50,10 @@ export class TeamComponent implements OnInit {
 
   onEditTeam(id:string){
     this.ts.startedEditingTeam.next(id);
+  }
+
+  onAddUser(teamId : string){
+    this.router.navigate(['/team/players/' + teamId]);
   }
 
 }

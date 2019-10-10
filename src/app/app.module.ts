@@ -13,12 +13,6 @@ import { TeamCreateComponent } from './main/team/team-create/team-create.compone
 import { HomeComponent } from './main/home/home.component';
 import { TeamPlayersComponent } from './main/team/team-players/team-players.component';
 
-// const appRoutes: Routes = [
-//   {
-
-//   }
-// ];
-
 @NgModule({
   declarations: [
     AppComponent,

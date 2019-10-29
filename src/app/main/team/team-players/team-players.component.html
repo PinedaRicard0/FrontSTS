@@ -1,26 +1,69 @@
 <div class="container">
-  <div class="row ml-1">
-    <button title="Add player" class="btn btn-primary icon" type="button" ><fa-icon [icon]="faNew"></fa-icon></button>
+  <div class="row ml-1 mt-5">
+    <button title="Add player" class="btn btn-primary icon" type="button" (click)="onAddPlayer(); [display='block']" #ap>
+      <fa-icon [icon]="faNew"></fa-icon>
+    </button>
   </div>
   <div *ngIf="playerList.length > 0">
-      <div class="mt-3 table-responsive">
-          <table class="table table-striped">
-              <thead>
-                  <tr>
-                      <th>Name</th>
-                      <th>Nickname</th>
-                      <th>Options</th>
-                  </tr>
-              </thead>
-              <tr *ngFor="let p of playerList">
-                <td>{{p.name}}</td>
-                <td>{{p.nickName}}</td>
-                <td>
-                    <button title="Edit player" class="btn icon" type="button"><fa-icon [icon]="faEdit"></fa-icon></button>
-                </td>
-              </tr>
-          </table>
-      </div>
+    <div class="mt-3 table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Nickname</th>
+            <th>Options</th>
+          </tr>
+        </thead>
+        <tr *ngFor="let p of playerList">
+          <td>{{p.name}}</td>
+          <td>{{p.nickName}}</td>
+          <td>
+            <button title="Edit player" class="btn icon" type="button" (click)="onEditPlayer(p.firebaseId); [display='block']">
+              <fa-icon [icon]="faEdit"></fa-icon>
+            </button>
+          </td>
+        </tr>
+      </table>
+    </div>
   </div>
   <p *ngIf="playerList.length <= 0"> The team does not have players!!</p>
+
+  <!-- Form modal-->
+  <div class="modal grayBackground" id="addPlayerModal" aria-hidden="true" aria-labelledby="addPlayerModal"
+    tabindex="-1" role="dialog" [ngStyle]="{'display':display}">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{modalTitle}}</h5>
+          <button type="button" class="close" (click)="[display='none']" aria-label="Close">
+            <fa-icon [icon]="faX"></fa-icon>
+          </button>
+        </div>
+        <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+          <div class="modal-body">
+
+            <div class="form-group col-md-12">
+              <label for="playerName">Name</label>
+              <input type="text" name="playerName" class="form-control" id="playerName" placeholder="Enter player name"
+                required ngModel>
+            </div>
+            <div class="form-group col-md-12">
+              <label for="playerNicknane">Nicknane</label>
+              <input type="text" name="playerNickname" class="form-control" id="playerNickname"
+                placeholder="Enter player nickname" ngModel>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-success" [disabled]="!f.valid" *ngIf="!isEditing">Save</button>
+            <button type="submit" class="btn btn-success" [disabled]="!f.valid" *ngIf="isEditing">Edit</button>
+            <button type="button" class="btn btn-dark" (click)="[display='none']" #cb>Close</button>
+          </div>
+        </form>
+
+
+      </div>
+    </div>
+  </div>
+
 </div>

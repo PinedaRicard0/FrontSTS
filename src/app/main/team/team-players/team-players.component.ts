@@ -1,9 +1,11 @@
-import { Component, OnInit} from '@angular/core';
-import {faPlusCircle, faPencilAlt, faLongArrowAltRight} from '@fortawesome/free-solid-svg-icons';
+import { Component, OnInit, ViewChild, ElementRef} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
+import {faPlusCircle, faPencilAlt, faLongArrowAltRight, faTimes} from '@fortawesome/free-solid-svg-icons';
 import { Player } from 'src/app/models/player.model';
 import { PlayerService } from 'src/app/services/player.service';
-import { ActivatedRoute } from '@angular/router';
-import { TeamsSevice } from 'src/app/services/teams.service';
+import { NgForm } from '@angular/forms';
+
 @Component({
   selector: 'app-team-players',
   templateUrl: './team-players.component.html',
@@ -15,10 +17,17 @@ export class TeamPlayersComponent implements OnInit {
   faNew = faPlusCircle;
   faEdit = faPencilAlt;
   faGreaterThan = faLongArrowAltRight;
+  faX = faTimes;
   //End icons
-
+  @ViewChild('cb') close: ElementRef<HTMLElement>
+  @ViewChild('ap') add: ElementRef<HTMLElement>
+  @ViewChild('f') playerForm: NgForm;
   playerList : Player[] = [];
   teamId: string;
+  display: string = 'none';
+  isEditing :boolean = false;
+  modalTitle: string = 'New Player'
+  playerToEdit: Player;
 
   constructor(private ps: PlayerService, private route: ActivatedRoute) { }
 
@@ -27,11 +36,49 @@ export class TeamPlayersComponent implements OnInit {
     this.route.params.subscribe(params => {
         this.teamId = params['teamId'];
       })
+      this.loadPlayers();
+  }
+
+  onSubmit(form: NgForm){
+    if(!this.isEditing){
+      console.log(form.value.playerNickname);
+      let player = new Player(form.value.playerName, this.teamId, form.value.playerNickname);
+      this.ps.createPlayer(player)
+        .subscribe(
+          res => {
+            form.reset();
+            this.loadPlayers();
+            this.close.nativeElement.click();
+          }
+      );
+    }
+    else{
+      console.log('La idea aquí es editar a este maestro');
+    }
+  }
+
+  onAddPlayer(){
+    this.isEditing = false;
+    this.modalTitle = 'New Player'
+    this.playerForm.reset();
+  }
+
+  onEditPlayer(id: string){
+    this.playerToEdit = this.ps.getMemPlayerById(id);
+    this.isEditing = true;
+    this.modalTitle = 'Edit Player'
+    this.playerForm.setValue({
+      playerName: this.playerToEdit.name,
+      playerNickname: this.playerToEdit.nickName
+    })
+  }
+
+  loadPlayers(){
     this.ps.getPlayerByTeam(this.teamId).subscribe(
       players =>{
         this.playerList = players;
+        this.ps.players = players;
       }
-    )
+    );
   }
-
 }

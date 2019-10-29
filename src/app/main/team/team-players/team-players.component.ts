@@ -53,7 +53,16 @@ export class TeamPlayersComponent implements OnInit {
       );
     }
     else{
-      console.log('La idea aquí es editar a este maestro');
+      let player = new Player(form.value.playerName, this.teamId, form.value.playerNickname);
+      player.firebaseId = this.playerToEdit.firebaseId;
+      this.ps.updatePlayer(player)
+        .subscribe(
+          rPlayer => {
+            form.reset();
+            this.loadPlayers();
+            this.close.nativeElement.click();
+          }
+        );
     }
   }
 

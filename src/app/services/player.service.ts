@@ -34,6 +34,14 @@ export class PlayerService{
         )
     }
 
+    updatePlayer(player: Player){
+        let fbi = player.firebaseId;
+        player.firebaseId = null;
+        return this.http
+            .put<{rPlayer: Player}>('https://sts-api-67d7d.firebaseio.com/players/' + fbi + '/.json',
+            player)
+    }
+
     getMemPlayerById(firebaseId : string){
         return this.players.filter(p => p.firebaseId == firebaseId)[0];
     }

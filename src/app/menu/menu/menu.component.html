@@ -1,6 +1,11 @@
 <div class="wrapper">
     <nav id="sidebar">
-        
+        <!--Fields-->
+        <button class="menu-drop btn dropdown-toggle btn-dark" data-toggle="collapse" data-target="#fields"
+            (click)="onMenuButtonClick('fields')">
+            <span class="ml-1"><fa-icon [icon]="faField"></fa-icon>Fields</span>
+        </button>
+        <!--teams-->
         <button class="menu-drop btn dropdown-toggle btn-dark" data-toggle="collapse" data-target="#teams"
         (click)="onMenuButtonClick('teams')">
             <span class="ml-1"><fa-icon [icon]="faTeams"></fa-icon>Teams</span>

@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Category } from 'src/app/models/category.model';
 import { CategoriesService } from 'src/app/services/categories.service';
 import { Router } from '@angular/router';
-import { faUsersCog } from '@fortawesome/free-solid-svg-icons';
+import { faUsersCog, faFlag } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-menu',
@@ -13,6 +13,7 @@ export class MenuComponent implements OnInit {
 
   //Icons
   faTeams = faUsersCog;
+  faField = faFlag;
   //End icons
   categories: Category[] = [];
   @ViewChild('teams') teamB: ElementRef;
@@ -27,6 +28,7 @@ export class MenuComponent implements OnInit {
   }
   
   onMenuButtonClick(option: string){
+    this.hideAllcollapsables();
     if(option == 'teams')
     {
       if(this.teamB.nativeElement.classList.contains('show')){
@@ -36,9 +38,16 @@ export class MenuComponent implements OnInit {
         this.teamB.nativeElement.classList.add('show')
       }
     }
+    else if(option == 'fields'){
+
+    }
   }
 
   loadTeamsCategory(category: number){
     this.router.navigate(['/teams/' + category]);
+  }
+
+  hideAllcollapsables(){
+    this.teamB.nativeElement.classList.remove('show');
   }
 }

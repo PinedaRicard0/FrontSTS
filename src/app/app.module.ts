@@ -12,6 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { TeamCreateComponent } from './main/team/team-create/team-create.component';
 import { HomeComponent } from './main/home/home.component';
 import { TeamPlayersComponent } from './main/team/team-players/team-players.component';
+import { FieldComponent } from './main/field/field/field.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { TeamPlayersComponent } from './main/team/team-players/team-players.comp
     TeamComponent,
     TeamCreateComponent,
     HomeComponent,
-    TeamPlayersComponent
+    TeamPlayersComponent,
+    FieldComponent,
   ],
   imports: [
     BrowserModule,

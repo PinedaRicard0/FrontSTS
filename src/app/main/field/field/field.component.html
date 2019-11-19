@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="row ml-1 mt-5">
+    <button title="Add field" class="btn btn-primary icon" type="button" (click)="onAddField(); [display='block']"
+      #af>
+      <fa-icon [icon]="faNew"></fa-icon>
+    </button>
+  </div>
+
+  <div class="row ml-1">
+    <div *ngIf="fieldsList && fieldsList.length == 0">
+      No fields available!!.
+    </div>
+  </div>
+</div>

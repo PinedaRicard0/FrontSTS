@@ -39,7 +39,7 @@ export class MenuComponent implements OnInit {
       }
     }
     else if(option == 'fields'){
-
+      this.router.navigate(['/fields']);
     }
   }
 

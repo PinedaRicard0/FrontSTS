@@ -73,12 +73,14 @@ export class TeamPlayersComponent implements OnInit {
   }
 
   onEditPlayer(id: string){
+    debugger;
     this.playerToEdit = this.ps.getMemPlayerById(id);
     this.isEditing = true;
     this.modalTitle = 'Edit Player'
+    let nn = this.playerToEdit.nickName ?  this.playerToEdit.nickName : "";
     this.playerForm.setValue({
       playerName: this.playerToEdit.name,
-      playerNickname: this.playerToEdit.nickName
+      playerNickname: nn
     })
   }
 

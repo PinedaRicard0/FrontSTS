@@ -1,14 +1,74 @@
 <div class="container">
   <div class="row ml-1 mt-5">
-    <button title="Add field" class="btn btn-primary icon" type="button" (click)="onAddField(); [display='block']"
-      #af>
+    <button title="Add field" class="btn btn-primary icon" type="button" (click)="onAddField(); [display='block']" #af>
       <fa-icon [icon]="faNew"></fa-icon>
     </button>
   </div>
 
-  <div class="row ml-1">
-    <div *ngIf="fieldsList && fieldsList.length == 0">
-      No fields available!!.
+
+  <div class ="mt-3" *ngIf="fieldList && fieldList.length == 0">
+    No fields available!!.
+  </div>
+  <div *ngIf="fieldList && fieldList.length > 0">
+    <div class="mt-3 table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Description</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tr *ngFor="let f of fieldList">
+          <td>{{f.name}}</td>
+          <td>{{f.address}}</td>
+          <td>{{f.description}}</td>
+          <td>
+            <button title="Edit field" class="btn icon" type="button" (click)="onEditField(f.firebaseId); [display='block']">
+              <fa-icon [icon]="faEdit"></fa-icon>
+            </button>
+          </td>
+        </tr>
+      </table>
     </div>
   </div>
 </div>
+
+<!--Popup creación nuevo field-->
+<div class="modal grayBackground" id="fieldModal" aria-hidden="true" aria-labelledby="fieldModal"
+    tabindex="-1" role="dialog" [ngStyle]="{'display':display}">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{modalTitle}}</h5>
+                <button type="button" class="close" (click)="[display='none']" aria-label="Close">
+                  <fa-icon [icon]="faClose"></fa-icon>
+                </button>
+              </div>
+              <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+                  <div class="modal-body">
+                      <div class="form-group col-md-12">
+                        <label for="fieldName">Name</label>
+                        <input type="text" name="fieldName" class="form-control" id="fieldName" placeholder="Enter field name"
+                          required ngModel>
+                      </div>
+                      <div class="form-group col-md-12">
+                        <label for="fieldAddress">Address</label>
+                        <input type="text" name="fieldAddress" class="form-control" id="fieldAddress"
+                          placeholder="Enter field address" required ngModel>
+                      </div>
+                      <div class="form-group col-md-12">
+                          <label for="fieldDecription">Description</label>
+                          <textarea class = "form-control" name = "fieldDecription" id="fieldDecription" placeholder="A brief description..." ngModel></textarea>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success" [disabled]="!f.valid" *ngIf="!isEditing">Save</button>
+                        <button type="submit" class="btn btn-success" [disabled]="!f.valid" *ngIf="isEditing">Edit</button>
+                        <button type="button" class="btn btn-dark" (click)="[display='none']; " #cb>Close</button>
+                    </div>
+              </form>
+        </div>
+    </div>
+ </div>

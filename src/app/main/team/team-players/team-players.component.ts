@@ -41,7 +41,6 @@ export class TeamPlayersComponent implements OnInit {
 
   onSubmit(form: NgForm){
     if(!this.isEditing){
-      console.log(form.value.playerNickname);
       let player = new Player(form.value.playerName, this.teamId, form.value.playerNickname);
       this.ps.createPlayer(player)
         .subscribe(
@@ -73,7 +72,6 @@ export class TeamPlayersComponent implements OnInit {
   }
 
   onEditPlayer(id: string){
-    debugger;
     this.playerToEdit = this.ps.getMemPlayerById(id);
     this.isEditing = true;
     this.modalTitle = 'Edit Player'

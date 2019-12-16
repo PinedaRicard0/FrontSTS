@@ -12,7 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { TeamCreateComponent } from './main/team/team-create/team-create.component';
 import { HomeComponent } from './main/home/home.component';
 import { TeamPlayersComponent } from './main/team/team-players/team-players.component';
-import { FieldComponent } from './main/field/field/field.component';
+import { FieldComponent } from './main/field/field.component';
 import { LoginComponent } from './login/login.component';
 
 @NgModule({

@@ -1,3 +1,16 @@
-<p>
-  login works!
-</p>
+<div id="main">
+  
+  <div id="divSign">
+    <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+        <legend style="color: white;">Sing In</legend>
+        <div class="form-group mt-4 row">
+          <fa-icon class="w-20 col-2" [icon]="faUser"></fa-icon>
+          <input class="w-80 col-10" type="email" name="email" id="email" placeholder="email" required ngModel>
+        </div>
+        <div class="form-group row">
+          <fa-icon class="w-20 col-2" [icon]="faLock"></fa-icon>
+          <input class="w-80 col-10" type="password" name="password" id="password" placeholder="password" required ngModel>
+        </div>
+    </form>
+  </div>
+</div>

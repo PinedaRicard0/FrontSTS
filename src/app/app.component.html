@@ -1,11 +1,16 @@
-<app-header></app-header>
-<div>
-    <div class="row">
-        <div class="col-sm-2">
-            <app-menu></app-menu>
-        </div>
-        <div class="col-sm-10">
-            <router-outlet></router-outlet>
+<div *ngIf='userLogin'>
+    <app-header></app-header>
+    <div>
+        <div class="row">
+            <div class="col-sm-2">
+                <app-menu></app-menu>
+            </div>
+            <div class="col-sm-10">
+                <router-outlet></router-outlet>
+            </div>
         </div>
     </div>
+</div>
+<div *ngIf='!userLogin'>
+    <app-login></app-login>
 </div>

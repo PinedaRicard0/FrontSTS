@@ -5,9 +5,11 @@ import { TeamCreateComponent } from './main/team/team-create/team-create.compone
 import { HomeComponent } from './main/home/home.component';
 import { TeamPlayersComponent } from './main/team/team-players/team-players.component';
 import { FieldComponent } from './main/field/field/field.component';
+import { LoginComponent } from './login/login.component';
 
 const appRoutes: Routes = [
-    {path: '', redirectTo: '/home', pathMatch: 'full'},
+    {path: '', redirectTo: '/login', pathMatch: 'full'},
+    {path: 'login', component: LoginComponent},
     {path: 'home', component: HomeComponent},
     {path: 'fields', component: FieldComponent},
     {path: 'teams', component: TeamComponent, children:[

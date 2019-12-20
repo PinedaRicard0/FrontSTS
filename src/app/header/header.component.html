@@ -1,9 +1,19 @@
 <nav class="navbar navHeader">
     <div class="container">
         <p class="navbar-brand">Sports Tournament Scheduler</p>
-        <div class="navbar-brand">
-            <img class="imageRounded" src="assets/img/user.png" alt="logo">
-            <span class="pl-2">{{user}}</span>
+        <div class="navbar-brand row">
+            <div class="col-10">
+                <div class="dropdown show" (click)="showHideLogout()">
+                    <img class="imageRounded mr-1" src="assets/img/user.png" alt="logo">
+                    <a class="btn btn-secondary dropdown-toggle" [routerLink]="" role="button" id="dropdownMenuLink"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{user}}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="margin-left: 3.3em;width: 100%;" #logout>
+                        <a class="dropdown-item" [routerLink]="">Logout</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </nav>

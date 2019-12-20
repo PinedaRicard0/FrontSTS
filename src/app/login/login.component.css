@@ -21,4 +21,12 @@
     opacity: 0.9;
 }
 
+.centerClass{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+
 fa-icon {color: white;}
+
+.modal-footer{width: 105% !important;}

@@ -1,16 +1,42 @@
 <div id="main">
-  
+
   <div id="divSign">
-    <form (ngSubmit)="onSubmit(f)" #f="ngForm">
-        <legend style="color: white;">Sing In</legend>
-        <div class="form-group mt-4 row">
-          <fa-icon class="w-20 col-2" [icon]="faUser"></fa-icon>
-          <input class="w-80 col-10" type="email" name="email" id="email" placeholder="email" required ngModel>
-        </div>
-        <div class="form-group row">
-          <fa-icon class="w-20 col-2" [icon]="faLock"></fa-icon>
-          <input class="w-80 col-10" type="password" name="password" id="password" placeholder="password" required ngModel>
-        </div>
+    <div *ngIf="isLoading" class="centerClass">
+      <app-spinner ></app-spinner>
+    </div>
+    <div class="centerClass w-100" *ngIf="error">
+      <div class="alert alert-danger w-100 text-center">
+        {{error}}
+      </div>
+    </div>
+    <div class="centerClass w-100" *ngIf="registered">
+      <div class="alert alert-success w-100 text-center">
+        {{registered}}
+      </div>
+    </div>
+    <form (ngSubmit)="onSubmit(f)" #f="ngForm" *ngIf="!isLoading">
+      <legend *ngIf="isLogin" style="color: rgb(255, 255, 255);">Sign In</legend>
+      <legend *ngIf="!isLogin" style="color: rgb(255, 255, 255);">Sign Up</legend>
+      <div class="form-group mt-4 row">
+        <fa-icon class="w-20 col-2" [icon]="faUser"></fa-icon>
+        <input class="w-80 col-10" type="email" name="email" id="email" placeholder="email" required ngModel>
+      </div>
+      <div class="form-group row">
+        <fa-icon class="w-20 col-2" [icon]="faLock"></fa-icon>
+        <input class="w-80 col-10" type="password" name="password" id="password" placeholder="password" minlength="6" required
+          ngModel>
+      </div>
+      <div *ngIf="!isLogin" class="form-group row">
+        <fa-icon class="w-20 col-2" [icon]="faLock"></fa-icon>
+        <input class="w-80 col-10" type="password" name="cPassword" id="cPassword" placeholder="confirm password" minlength="6" required
+          ngModel>
+      </div>
+      <div class="modal-footer pt-3 pr-0">
+        <a *ngIf="isLogin" [routerLink]="" (click)="isLogin = false;" class="float-left" style="margin-right: 4em; color: rgba(12, 203, 236, 0.822); font-weight: bold;">Create an account</a>
+        <a *ngIf="!isLogin" [routerLink]=""  (click)="isLogin = true;" class="float-left" style="margin-right: 4em; color: rgba(12, 203, 236, 0.822); font-weight: bold;">I already have and account</a>
+        <button *ngIf="isLogin" type="submit" class="btn btn-success float-right" [disabled]="!f.valid">Log in</button>
+        <button *ngIf="!isLogin" type="submit" class="btn btn-success float-right" [disabled]="!f.valid">Create</button>
+      </div>
     </form>
   </div>
 </div>

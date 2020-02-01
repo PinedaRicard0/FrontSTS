@@ -12,7 +12,7 @@ export class AuthInterceptorService implements HttpInterceptor{
         return this.as.user.pipe(
             take(1),
             exhaustMap( user => {
-                if(user && user.token){
+                if(user && user.token && req.url.indexOf("categories") === -1 ){
                     const request = req.clone({
                         params: new HttpParams().set('auth', user.token)
                     });

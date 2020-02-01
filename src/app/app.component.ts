@@ -14,15 +14,16 @@ export class AppComponent implements OnInit, OnDestroy{
   private userSub: Subscription;
 
   title = 'FrontSTS';
-  userLogin : boolean = false;
+  userLogin : boolean = true;
 
   ngOnInit(){
-    this.userSub = this.as.user.subscribe(user => {
-      this.userLogin = !!user;
-    });
+    this.as.autoLogin();
+    // this.userSub = this.as.user.subscribe(user => {
+    //   this.userLogin = !!user;
+    // });
   }
 
   ngOnDestroy(){
-    this.userSub.unsubscribe();
+    // this.userSub.unsubscribe();
   }
 }

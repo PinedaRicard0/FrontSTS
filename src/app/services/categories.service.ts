@@ -8,22 +8,21 @@ import { Category } from '../models/category.model';
 export class CategoriesService {
     cList : Category[] = [];
     categories = new EventEmitter<Category[]>();
-
+    // firebase url = https://sts-api-67d7d.firebaseio.com/categories.json
+    // [key: string]: Category
     constructor(private http: HttpClient) { }
 
     public fetchCategories() {
         this.http
-            .get<{ [key: string]: Category }>(
-                'https://sts-api-67d7d.firebaseio.com/categories.json'
+            .get<Category[]>(
+                'http://localhost:50059/api/teams/categories'
             )
             .pipe(
                 map(responseData => {
                     const categoriesArray: Category[] = [];
-                    for (const key in responseData) {
-                        if (responseData.hasOwnProperty(key)) {
-                            categoriesArray.push({ ...responseData[key], firebaseId: key });
-                        }
-                    }
+                    responseData.forEach(function(categorie){
+                        categoriesArray.push(categorie);
+                    })
                     return categoriesArray;
                 })
             ).subscribe(categories => {
@@ -33,6 +32,7 @@ export class CategoriesService {
     }
 
     getCategoryById(categoryId :string){
+        debugger;
         let x = this.cList.filter(c => c.id == parseInt(categoryId));
         return x[0];
     }

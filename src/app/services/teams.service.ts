@@ -39,20 +39,19 @@ export class TeamsSevice {
     //Populate categoryTeams attr according to category
     getTeamsByCategory(category: string) {
         this.http
-            .get<{ [key: string]: Team }>(
-                'https://sts-api-67d7d.firebaseio.com/teams.json?orderBy="category"&equalTo=' + '"' + category + '"'
+            .get<Team[]>(
+                'http://localhost:50059/api/teams/categorieteams/' + category
             )
             .pipe(
                 map(
                     response => {
+                        debugger;
                         const teamsArray: Team[] = [];
-                        for (const key in response) {
-                            if (response.hasOwnProperty(key)) {
-                                teamsArray.push({ ...response[key], firebaseId: key });
-                            }
-                        }
-                        console.log(teamsArray.length);
-                        return teamsArray;
+                        let tmpTeam: Team;
+                        response.forEach(function(team){
+                            teamsArray.push(team);
+                        })
+                         return teamsArray;
                     })
             )
             .subscribe(teams => {

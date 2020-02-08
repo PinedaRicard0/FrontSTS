@@ -34,25 +34,26 @@ export class FieldService {
     createField(field: Field) {
         this.http.post<string>(`${environment.apiUrl}fields`, field).subscribe(
             r => {
-                debugger;
-                console.log(r);
                 this.getFields();
             }
         )
     }
 
     updateField(field : Field){
-        let firebaseId = field.firebaseId;
-        this.http.put<{ rField: Field }>(
-                'https://sts-api-67d7d.firebaseio.com/fields/' + firebaseId + '/.json',
-                new Field(field.name, field.address, field.description)
+        let id = field.id;
+        console.log(`${environment.apiUrl}fields`);
+        this.http.put<string>(
+                `${environment.apiUrl}fields`,field
         ).subscribe(
             response => {
-               let updatedField = this.fields.filter(f => f.firebaseId == firebaseId)[0];
-               updatedField.name = field.name;
-               updatedField.address = field.address;
-               updatedField.description = field.description;
-               this.fieldsEmmiter.next(this.fields);
+                debugger;
+                if(response === 'updated'){
+                    let updatedField = this.fields.filter(f => f.id == id)[0];
+                    updatedField.name = field.name;
+                    updatedField.address = field.address;
+                    updatedField.description = field.description;
+                }
+                this.fieldsEmmiter.next(this.fields);
             }
         )
     }

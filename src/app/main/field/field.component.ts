@@ -60,8 +60,12 @@ export class FieldComponent implements OnInit, OnDestroy {
     }
   }
 
-  onEditField(fieldId : string){
-    this.fieldToEdit = this.fieldList.filter(f => f.firebaseId == fieldId)[0];
+  onEditField(fieldId : number){
+    let tmpField = this.fieldList.filter(f => f.id == fieldId)[0];
+
+    this.fieldToEdit = new Field(tmpField.name,tmpField.address, tmpField.description);
+    this.fieldToEdit.id = tmpField.id;
+
     this.isEditing = true;
     this.modalTitle = "Edit field";
     let des = this.fieldToEdit.description ? this.fieldToEdit.description : "";

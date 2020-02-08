@@ -3,19 +3,18 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
 import { Category } from '../models/category.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class CategoriesService {
     cList : Category[] = [];
     categories = new EventEmitter<Category[]>();
-    // firebase url = https://sts-api-67d7d.firebaseio.com/categories.json
-    // [key: string]: Category
     constructor(private http: HttpClient) { }
 
     public fetchCategories() {
         this.http
             .get<Category[]>(
-                'http://localhost:50059/api/teams/categories'
+                `${environment.apiUrl}teams/categories`
             )
             .pipe(
                 map(responseData => {
@@ -32,7 +31,6 @@ export class CategoriesService {
     }
 
     getCategoryById(categoryId :string){
-        debugger;
         let x = this.cList.filter(c => c.id == parseInt(categoryId));
         return x[0];
     }

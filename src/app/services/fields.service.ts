@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Field } from '../models/field.model';
 import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class FieldService {
@@ -12,16 +13,13 @@ export class FieldService {
     constructor(private http: HttpClient) { }
 
     getFields() {
-        let url = "https://sts-api-67d7d.firebaseio.com/fields.json";
-        this.http.get<{ [key: string]: Field }>(url).pipe(
+        this.http.get< Field[] >(`${environment.apiUrl}fields`).pipe(
             map(
                 response => {
                     const fields: Field[] = [];
-                    for (const f in response) {
-                        if (response.hasOwnProperty(f)) {
-                            fields.push({ ...response[f], firebaseId: f })
-                        }
-                    }
+                    response.forEach(function(field){
+                        fields.push(field);
+                    })
                     return fields;
                 }
             )
@@ -34,9 +32,10 @@ export class FieldService {
     }
 
     createField(field: Field) {
-        let url = "https://sts-api-67d7d.firebaseio.com/fields.json";
-        this.http.post<{ key: string }>(url, field).subscribe(
+        this.http.post<string>(`${environment.apiUrl}fields`, field).subscribe(
             r => {
+                debugger;
+                console.log(r);
                 this.getFields();
             }
         )

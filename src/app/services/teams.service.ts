@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Team } from '../models/team.model';
 import { map } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({ providedIn: 'root' })
@@ -40,12 +41,11 @@ export class TeamsSevice {
     getTeamsByCategory(category: string) {
         this.http
             .get<Team[]>(
-                'http://localhost:50059/api/teams/categorieteams/' + category
+                `${environment.apiUrl}teams/categorieteams/${category}`
             )
             .pipe(
                 map(
                     response => {
-                        debugger;
                         const teamsArray: Team[] = [];
                         let tmpTeam: Team;
                         response.forEach(function(team){

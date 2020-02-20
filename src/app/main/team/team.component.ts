@@ -6,6 +6,7 @@ import { Team } from 'src/app/models/team.model';
 import { faPencilAlt, faUserPlus, faLongArrowAltRight } from '@fortawesome/free-solid-svg-icons';
 import { CategoriesService } from 'src/app/services/categories.service';
 import { Category } from 'src/app/models/category.model';
+import { Pool } from 'src/app/models/pool.model';
 
 @Component({
   selector: 'app-team',
@@ -36,15 +37,10 @@ export class TeamComponent implements OnInit {
           
         }
       );
-
     this.ts.categoryTeams.subscribe(teams => {
       this.teamCategory = teams;
       this.currentCategory = this.cs.getCategoryById(this.categoryId);
-      //Se redirige la app a los elementos de la categoría del equipo recién creado
-      // if(this.teamCategory.length > 0)
-      // {
-      //   this.router.navigate(['/teams/' + this.teamCategory[0].category]);
-      // }
+      this.cs.getPoolsByCategory(Number(this.categoryId));
     });
   }
 

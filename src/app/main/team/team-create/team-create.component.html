@@ -9,8 +9,7 @@
       <div class="form-group col-md-6">
         <label for="teamPool">Select Pool</label>
         <select required name="teamPool" class="form-control" id="teamPool" ngModel>
-          <option value="a">A</option>
-          <option value="b">B</option>
+          <option *ngFor="let p of poolsCategory" value="{{p.name | lowercase }}">{{p.name | uppercase}}</option>
         </select>
       </div>
     </div>
@@ -20,7 +19,7 @@
         <div>
           <ul id="teamCreateCategory" *ngIf="!isEditing">
             <li *ngFor="let c of categories" >
-              <input class="liInput" type="radio" name="category" [(ngModel)]="categoryId" value="{{c.id}}" required ngModel>{{c.name}}
+              <input class="liInput" type="radio" name="category" (click)="onCategoryChanged(c.id)" [(ngModel)]="categoryId" value="{{c.id}}" required ngModel>{{c.name}}
             </li>
           </ul>
           <ul id="teamCreateCategory" *ngIf="isEditing">

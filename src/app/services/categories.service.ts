@@ -4,11 +4,13 @@ import { map } from 'rxjs/operators';
 
 import { Category } from '../models/category.model';
 import { environment } from 'src/environments/environment';
+import { Pool } from '../models/pool.model';
 
 @Injectable({ providedIn: 'root' })
 export class CategoriesService {
     cList : Category[] = [];
     categories = new EventEmitter<Category[]>();
+    categoryPools = new EventEmitter<Pool[]>();
     constructor(private http: HttpClient) { }
 
     public fetchCategories() {
@@ -33,6 +35,25 @@ export class CategoriesService {
     getCategoryById(categoryId :string){
         let x = this.cList.filter(c => c.id == parseInt(categoryId));
         return x[0];
+    }
+
+    public getPoolsByCategory(id: number){
+        this.http.get<Pool[]>(`${environment.apiUrl}categories/categoriepools/${id}`).
+        pipe(
+            map(
+                res => {
+                    const poolArray:Pool[] = [];
+                    res.forEach(function(pool){
+                        poolArray.push(pool);
+                    })
+                    return poolArray;
+                }
+            )
+        ).subscribe(
+            pools => {
+                this.categoryPools.emit(pools);
+            }
+        )
     }
 
 }

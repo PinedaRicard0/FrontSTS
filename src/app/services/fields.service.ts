@@ -46,7 +46,6 @@ export class FieldService {
                 `${environment.apiUrl}fields`,field
         ).subscribe(
             response => {
-                debugger;
                 if(response === 'updated'){
                     let updatedField = this.fields.filter(f => f.id == id)[0];
                     updatedField.name = field.name;

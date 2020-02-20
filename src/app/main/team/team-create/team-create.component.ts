@@ -7,6 +7,7 @@ import { Team } from 'src/app/models/team.model';
 import { TeamsSevice } from 'src/app/services/teams.service';
 import { CategoriesService } from 'src/app/services/categories.service';
 import { Category } from 'src/app/models/category.model';
+import { Pool } from 'src/app/models/pool.model';
 
 @Component({
   selector: 'app-team-create',
@@ -17,6 +18,7 @@ export class TeamCreateComponent implements OnInit, OnDestroy {
 
   public categoryId: string;
   public categories: Category[] = [];
+  poolsCategory: Pool[] = [];
   teamEditSubs : Subscription;
   public isEditing : boolean = false;
   teamToEdit : Team;
@@ -43,6 +45,10 @@ export class TeamCreateComponent implements OnInit, OnDestroy {
         );
     }
     )
+
+    this.cs.categoryPools.subscribe(pools => {
+      this.poolsCategory = pools;
+    })
     
     //Cuando se selecciona editar un equipo se dispara el subject startedEditingTeam
     this.teamEditSubs =  this.teamService.startedEditingTeam
@@ -89,6 +95,10 @@ export class TeamCreateComponent implements OnInit, OnDestroy {
   onCancelEdit(){
     this.isEditing = false;
     this.teamForm.reset();
+  }
+
+  onCategoryChanged(id: number){
+    this.cs.getPoolsByCategory(id);
   }
 
   ngOnDestroy(){

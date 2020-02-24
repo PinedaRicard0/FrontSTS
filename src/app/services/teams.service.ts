@@ -17,9 +17,9 @@ export class TeamsSevice {
     constructor(private http: HttpClient) { }
 
     createTeam(team: Team) {
-        this.http
-            .post<{ name: string }>(
-                'https://sts-api-67d7d.firebaseio.com/teams.json',
+        debugger;
+        let url = `${environment.apiUrl}teams}`;
+        this.http.post< string >(`${environment.apiUrl}teams}`,
                 team
             )
             .subscribe(response => {

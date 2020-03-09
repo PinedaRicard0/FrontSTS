@@ -9,7 +9,7 @@
       <div class="form-group col-md-6">
         <label for="teamPool">Select Pool</label>
         <select required name="teamPool" class="form-control" id="teamPool" ngModel>
-          <option *ngFor="let p of poolsCategory" value="{{p.name | lowercase }}">{{p.name | uppercase}}</option>
+          <option *ngFor="let p of poolsCategory" value="{{p.id }}">{{p.name | uppercase}}</option>
         </select>
       </div>
     </div>

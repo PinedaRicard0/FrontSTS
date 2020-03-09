@@ -18,8 +18,7 @@ export class TeamsSevice {
 
     createTeam(team: Team) {
         debugger;
-        let url = `${environment.apiUrl}teams}`;
-        this.http.post< string >(`${environment.apiUrl}teams}`,
+        this.http.post< string >(`${environment.apiUrl}teams/create`,
                 team
             )
             .subscribe(response => {

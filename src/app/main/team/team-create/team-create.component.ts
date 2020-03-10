@@ -58,15 +58,14 @@ export class TeamCreateComponent implements OnInit, OnDestroy {
               .subscribe(
                 (team: Team) => {
                   const stringCategory = team.category.toString();
-
                   this.isEditing = true;
                   this.teamToEdit = team;
                   this.teamToEdit.category = stringCategory;
+                  let pp = this.poolsCategory.filter(pc =>pc.id == team.poolId);
                   this.teamForm.setValue({
                     teamName: this.teamToEdit.name,
-                    teamPool: this.teamToEdit.pool,
+                    teamPool: pp[0].id,
                     category: stringCategory
-                    
                   })
                 }
               );
@@ -76,16 +75,18 @@ export class TeamCreateComponent implements OnInit, OnDestroy {
 
   onSubmit(form: NgForm) {
     if(!this.isEditing){
-      let team = new Team(1, form.value.teamName, form.value.category, form.value.teamPool);
+      let team = new Team(1, form.value.teamName, form.value.category, Number(form.value.teamPool));
       this.teamService.createTeam(team);
     }
     else{
       this.teamToEdit.category = form.value.category;
       this.teamToEdit.name = form.value.teamName;
-      this.teamToEdit.pool = form.value.teamPool
+      this.teamToEdit.poolId = Number(form.value.teamPool);
       this.teamService.updateTeam(this.teamToEdit)
-        .subscribe(team => {
-          this.teamService.getTeamsByCategory(this.categoryId)
+        .subscribe(resp => {
+          if(resp == "updated"){
+            this.teamService.getTeamsByCategory(this.categoryId)
+          }
         });
       this.isEditing = false;
     }

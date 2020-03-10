@@ -17,7 +17,6 @@ export class TeamsSevice {
     constructor(private http: HttpClient) { }
 
     createTeam(team: Team) {
-        debugger;
         this.http.post< string >(`${environment.apiUrl}teams/create`,
                 team
             )
@@ -27,11 +26,12 @@ export class TeamsSevice {
     }
 
     updateTeam(team: Team){
-        let firebaseId = team.firebaseId;
-        team.firebaseId = null;
+        debugger;
+        // let firebaseId = team.firebaseId;
+        // team.firebaseId = null;
         return this.http
-            .put<{ rTeam: Team }>(
-                'https://sts-api-67d7d.firebaseio.com/teams/' + firebaseId + '/.json',
+            .put<string>(
+                `${environment.apiUrl}teams/update`,
                 team
             )
     }
@@ -59,20 +59,13 @@ export class TeamsSevice {
     }
 
     getTeamById(id: string) {
-        let url = 'https://sts-api-67d7d.firebaseio.com/teams.json?orderBy="$key"&equalTo=' + '"' + id + '"';
-        return this.http.get<{ [key: string]: Team }>(url)
+        // let url = 'https://sts-api-67d7d.firebaseio.com/teams.json?orderBy="$key"&equalTo=' + '"' + id + '"';
+        let url = `${environment.apiUrl}teams/getteam/${id}`
+        return this.http.get<Team>(url)
             .pipe(
                 map(
                     response => {
-                        let team: Team;
-                        for (const key in response) {
-                            if (response.hasOwnProperty(key)) {
-                                team = new Team(response[key].id,response[key].name,response[key].category
-                                    ,response[key].pool);
-                                team.firebaseId = key;
-                            }
-                        }
-                        return team;
+                        return response;
                     }
                 )
             )

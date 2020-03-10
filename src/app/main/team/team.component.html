@@ -16,8 +16,8 @@
             <td>{{c.name}}</td>
             <td>{{c.pool | uppercase}}</td>
             <td>
-                <button title="Edit team" class="btn icon" type="button" value="Edit" (click)="onEditTeam(c.firebaseId)"><fa-icon [icon]="faEdit"></fa-icon></button>
-                <button title="Add players" class="btn icon" type="button" (click)="onAddUser(c.firebaseId)"><fa-icon [icon]="faAddUser"></fa-icon></button>
+                <button title="Edit team" class="btn icon" type="button" value="Edit" (click)="onEditTeam(c.id)"><fa-icon [icon]="faEdit"></fa-icon></button>
+                <button title="Add players" class="btn icon" type="button" (click)="onAddUser(c.id)"><fa-icon [icon]="faAddUser"></fa-icon></button>
             </td>
         </tr>
     </table>

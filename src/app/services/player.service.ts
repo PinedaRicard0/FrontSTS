@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
 import { Player } from '../models/player.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({providedIn:'root'})
 export class PlayerService{
@@ -11,38 +12,30 @@ export class PlayerService{
     constructor(private http: HttpClient){}
 
     createPlayer(player: Player){
-        let url = 'https://sts-api-67d7d.firebaseio.com/players.json';
+        let url =`${environment.apiUrl}players/addteamplayer`;
         return this.http
-            .post<{name: string}>(url,player);
+            .post<string>(url,player);
     }
 
 
     getPlayerByTeam(teamId: string){
-        let url = 'https://sts-api-67d7d.firebaseio.com/players.json?orderBy="teamId"&equalTo=' + '"' + teamId + '"';
-        return this.http.get<{[key : string] : Player }>(url).pipe(
+        let url = `${environment.apiUrl}players/getteamplayers/${teamId}`
+        return this.http.get<Player[]>(url).pipe(
             map(
                 response => {
-                    const playersArray: Player[] = [];
-                    for (const key in response) {
-                        if (response.hasOwnProperty(key)) {
-                            playersArray.push({ ...response[key], firebaseId: key });
-                        }
-                    }
-                    return playersArray;
+                    return response;
                 }
             )
         )
     }
 
     updatePlayer(player: Player){
-        let fbi = player.firebaseId;
-        player.firebaseId = null;
         return this.http
-            .put<{rPlayer: Player}>('https://sts-api-67d7d.firebaseio.com/players/' + fbi + '/.json',
+            .put<string>(`${environment.apiUrl}players/update`,
             player)
     }
 
-    getMemPlayerById(firebaseId : string){
-        return this.players.filter(p => p.firebaseId == firebaseId)[0];
+    getMemPlayerById(id : string){
+        return this.players.filter(p => p.id == Number(id))[0];
     }
 }

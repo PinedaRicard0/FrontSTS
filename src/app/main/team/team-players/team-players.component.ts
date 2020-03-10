@@ -41,10 +41,11 @@ export class TeamPlayersComponent implements OnInit {
 
   onSubmit(form: NgForm){
     if(!this.isEditing){
-      let player = new Player(form.value.playerName, this.teamId, form.value.playerNickname);
+      let player = new Player(form.value.playerName, Number(this.teamId), form.value.playerNickname);
       this.ps.createPlayer(player)
         .subscribe(
           res => {
+            console.log(res);
             form.reset();
             this.loadPlayers();
             this.close.nativeElement.click();
@@ -52,11 +53,11 @@ export class TeamPlayersComponent implements OnInit {
       );
     }
     else{
-      let player = new Player(form.value.playerName, this.teamId, form.value.playerNickname);
-      player.firebaseId = this.playerToEdit.firebaseId;
+      let player = new Player(form.value.playerName, Number(this.teamId), form.value.playerNickname);
+      player.id = this.playerToEdit.id;
       this.ps.updatePlayer(player)
         .subscribe(
-          rPlayer => {
+          res => {
             form.reset();
             this.loadPlayers();
             this.close.nativeElement.click();
@@ -83,6 +84,7 @@ export class TeamPlayersComponent implements OnInit {
   }
 
   loadPlayers(){
+    debugger;
     this.ps.getPlayerByTeam(this.teamId).subscribe(
       players =>{
         this.playerList = players;

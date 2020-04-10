@@ -37,11 +37,11 @@ import { AuthInterceptorService } from './services/auth-interceptor';
     HttpClientModule,
     FontAwesomeModule
   ],
-  // providers: [{
-  //   provide: HTTP_INTERCEPTORS,
-  //   useClass: AuthInterceptorService,
-  //   multi: true
-  // }],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptorService,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

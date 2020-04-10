@@ -1,4 +1,4 @@
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpParams } from '@angular/common/http';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { exhaustMap, take} from 'rxjs/operators';
@@ -12,9 +12,10 @@ export class AuthInterceptorService implements HttpInterceptor{
         return this.as.user.pipe(
             take(1),
             exhaustMap( user => {
-                if(user && user.token && req.url.indexOf("categories") === -1 ){
+                debugger;
+                if(user && user.token && (!req.url.includes('Auth/register') || !req.url.includes('Auth/login'))){
                     const request = req.clone({
-                        params: new HttpParams().set('auth', user.token)
+                        headers : new HttpHeaders().set('Authorization', 'Bearer ' + user.token)
                     });
                     return next.handle(request);
                 }

@@ -17,8 +17,13 @@
     <form (ngSubmit)="onSubmit(f)" #f="ngForm" *ngIf="!isLoading">
       <legend *ngIf="isLogin" style="color: rgb(255, 255, 255);">Sign In</legend>
       <legend *ngIf="!isLogin" style="color: rgb(255, 255, 255);">Sign Up</legend>
-      <div class="form-group mt-4 row">
+      <div *ngIf="!isLogin" class="form-group row">
         <fa-icon class="w-20 col-2" [icon]="faUser"></fa-icon>
+        <input class="w-80 col-10" type="text" name="name" id="name" placeholder="Your name" required
+          ngModel>
+      </div>
+      <div class="form-group mt-4 row">
+        <fa-icon class="w-20 col-2" [icon]="faAt"></fa-icon>
         <input class="w-80 col-10" type="email" name="email" id="email" placeholder="email" required ngModel>
       </div>
       <div class="form-group row">

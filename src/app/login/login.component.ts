@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {faUser, faLock} from '@fortawesome/free-solid-svg-icons';
+import {faUser, faLock, faAt} from '@fortawesome/free-solid-svg-icons';
 import { NgForm } from '@angular/forms';
 import { AuthService, AuthResponseData } from '../services/auth.service';
 import { Observable } from 'rxjs';
@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
   //Icons
   faUser = faUser;
   faLock = faLock;
+  faAt = faAt;
   //End icons
   isLogin = true;
   isLoading = false;
@@ -33,12 +34,14 @@ export class LoginComponent implements OnInit {
     }
     const email = form.value.email;
     const pass = form.value.password;
-    let authObs : Observable<AuthResponseData>;
+    const name = form.value.name;
+    // let authObs : Observable<AuthResponseData>;
+    let authObs : Observable<any>;
     this.isLoading = true;
     if(!this.isLogin){
       const cPass = form.value.cPassword;
       if(cPass == pass){
-        authObs = this.as.singUp(email, pass);
+        authObs = this.as.singUp(name, email, pass);
       }
       else{
         this.error = 'Password and confirmation must be equals';
@@ -54,7 +57,7 @@ export class LoginComponent implements OnInit {
       resData => {
         this.isLoading = false;
         //When user is signing up
-        if (resData.registered == null){
+        if (resData == null){
           this.registered = "Sign Up successful";
           setTimeout(() => {
             this.registered = null;

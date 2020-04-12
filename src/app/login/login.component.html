@@ -4,16 +4,6 @@
     <div *ngIf="isLoading" class="centerClass">
       <app-spinner ></app-spinner>
     </div>
-    <div class="centerClass w-100" *ngIf="error">
-      <div class="alert alert-danger w-100 text-center">
-        {{error}}
-      </div>
-    </div>
-    <div class="centerClass w-100" *ngIf="registered">
-      <div class="alert alert-success w-100 text-center">
-        {{registered}}
-      </div>
-    </div>
     <form (ngSubmit)="onSubmit(f)" #f="ngForm" *ngIf="!isLoading">
       <legend *ngIf="isLogin" style="color: rgb(255, 255, 255);">Sign In</legend>
       <legend *ngIf="!isLogin" style="color: rgb(255, 255, 255);">Sign Up</legend>
@@ -27,9 +17,9 @@
         <input class="w-80 col-10" type="email" name="email" id="email" placeholder="email" required ngModel>
       </div>
       <div class="form-group row">
-        <fa-icon class="w-20 col-2" [icon]="faLock"></fa-icon>
-        <input class="w-80 col-10" type="password" name="password" id="password" placeholder="password" minlength="6" required
-          ngModel>
+        <fa-icon class="w-20 col-2" [icon]="faLock" title="Minimun 6 maximun 12 characters"></fa-icon>
+        <input class="w-80 col-10" type="password" name="password" id="password" placeholder="password" minlength="6" maxlength="16"
+        required ngModel>
       </div>
       <div *ngIf="!isLogin" class="form-group row">
         <fa-icon class="w-20 col-2" [icon]="faLock"></fa-icon>

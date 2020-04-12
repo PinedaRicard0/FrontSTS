@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import { AuthService, AuthResponseData } from '../services/auth.service';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { AlertifyService } from '../services/alertify.service';
 
 @Component({
   selector: 'app-login',
@@ -19,11 +20,8 @@ export class LoginComponent implements OnInit {
   //End icons
   isLogin = true;
   isLoading = false;
-  error = null;
-  registered = null;
 
-
-  constructor(private as : AuthService, private router : Router) { }
+  constructor(private as : AuthService, private router : Router, private alertify: AlertifyService) { }
 
   ngOnInit() {
   }
@@ -44,8 +42,7 @@ export class LoginComponent implements OnInit {
         authObs = this.as.singUp(name, email, pass);
       }
       else{
-        this.error = 'Password and confirmation must be equals';
-        setTimeout(() => {this.error = null;}, 5000);
+        this.alertify.error('Password and confirmation must be equals');
         this.isLoading = false;
       }
     }
@@ -58,19 +55,15 @@ export class LoginComponent implements OnInit {
         this.isLoading = false;
         //When user is signing up
         if (resData == null){
-          this.registered = "Sign Up successful";
-          setTimeout(() => {
-            this.registered = null;
-            this.isLogin = true;
-          }, 3000);
+          this.alertify.success("Sign Up successful");
+          this.isLogin = true;
         }
         //When user is loging in
         else{
           this.router.navigate(['/home']);
         }
       }, errorMessage =>{
-        this.error = errorMessage;
-        setTimeout(() => {this.error = null;}, 5000);
+        this.alertify.error(errorMessage);
         this.isLoading = false;
       }
     );

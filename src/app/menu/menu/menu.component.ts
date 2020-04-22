@@ -55,4 +55,8 @@ export class MenuComponent implements OnInit {
   loadTeamsCategory(category: number){
     this.router.navigate(['/teams/' + category]);
   }
+
+  loadTeamPoolsCategory(category: number){
+    this.router.navigate(['/pools/' + category]);
+  }
 }

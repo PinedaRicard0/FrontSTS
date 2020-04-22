@@ -12,7 +12,6 @@ export class AuthInterceptorService implements HttpInterceptor{
         return this.as.user.pipe(
             take(1),
             exhaustMap( user => {
-                debugger;
                 if(user && user.token && (!req.url.includes('Auth/register') || !req.url.includes('Auth/login'))){
                     const request = req.clone({
                         headers : new HttpHeaders().set('Authorization', 'Bearer ' + user.token)

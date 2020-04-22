@@ -6,6 +6,7 @@ import { HomeComponent } from './main/home/home.component';
 import { TeamPlayersComponent } from './main/team/team-players/team-players.component';
 import { FieldComponent } from './main/field/field.component';
 import { LoginComponent } from './login/login.component';
+import { PoolComponent } from './main/pool/pool.component';
 
 const appRoutes: Routes = [
     {path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -16,6 +17,7 @@ const appRoutes: Routes = [
         {path: ':categoryId', component: TeamCreateComponent}
     ]},
     {path: 'team/players/:teamId', component: TeamPlayersComponent},
+    {path: 'pools/:catId', component: PoolComponent}
 ];
 
 @NgModule({

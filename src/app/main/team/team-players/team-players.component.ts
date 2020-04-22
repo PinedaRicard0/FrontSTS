@@ -84,7 +84,6 @@ export class TeamPlayersComponent implements OnInit {
   }
 
   loadPlayers(){
-    debugger;
     this.ps.getPlayerByTeam(this.teamId).subscribe(
       players =>{
         this.playerList = players;

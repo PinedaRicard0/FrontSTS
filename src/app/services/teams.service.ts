@@ -26,7 +26,6 @@ export class TeamsSevice {
     }
 
     updateTeam(team: Team){
-        debugger;
         // let firebaseId = team.firebaseId;
         // team.firebaseId = null;
         return this.http

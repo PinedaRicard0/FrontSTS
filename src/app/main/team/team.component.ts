@@ -6,7 +6,6 @@ import { Team } from 'src/app/models/team.model';
 import { faPencilAlt, faUserPlus, faLongArrowAltRight } from '@fortawesome/free-solid-svg-icons';
 import { CategoriesService } from 'src/app/services/categories.service';
 import { Category } from 'src/app/models/category.model';
-import { Pool } from 'src/app/models/pool.model';
 
 @Component({
   selector: 'app-team',

@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild, ElementRef} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import {faPlusCircle, faPencilAlt, faLongArrowAltRight, faTimes} from '@fortawesome/free-solid-svg-icons';
 import { Player } from 'src/app/models/player.model';
 import { PlayerService } from 'src/app/services/player.service';
 import { NgForm } from '@angular/forms';
+import { ShareService } from 'src/app/services/share.service';
 
 @Component({
   selector: 'app-team-players',
@@ -28,8 +29,10 @@ export class TeamPlayersComponent implements OnInit {
   isEditing :boolean = false;
   modalTitle: string = 'New Player'
   playerToEdit: Player;
+  breadCrumb: any;
 
-  constructor(private ps: PlayerService, private route: ActivatedRoute) { }
+  constructor(private ps: PlayerService, private route: ActivatedRoute, private ss: ShareService,
+    private router: Router) { }
 
   ngOnInit() {
     //this.teamId = this.route.snapshot.params['teamId'];
@@ -37,6 +40,10 @@ export class TeamPlayersComponent implements OnInit {
         this.teamId = params['teamId'];
       })
       this.loadPlayers();
+      this.ss.getBreadScrumbData(this.teamId,'players')
+        .subscribe(res => {
+          this.breadCrumb = res;
+        })
   }
 
   onSubmit(form: NgForm){
@@ -90,5 +97,9 @@ export class TeamPlayersComponent implements OnInit {
         this.ps.players = players;
       }
     );
+  }
+
+  back(categoryId: number){
+    this.router.navigate(['/teams/' + categoryId])
   }
 }

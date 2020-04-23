@@ -1,5 +1,12 @@
 <div class="container">
-  <div class="row ml-1 mt-5">
+  <div *ngIf="breadCrumb" class="mt-5">
+    <b class="mr-1" style="text-decoration: underline; font-style: italic; cursor: pointer;"
+    (click)="back(breadCrumb.categoryId)">
+      {{breadCrumb.categoryName}} Category ( {{breadCrumb.teamName}} )
+    </b>
+     <b class="ml-1"><fa-icon [icon]="faGreaterThan"></fa-icon> Players</b>
+  </div>
+  <div class="row ml-1 mt-2">
     <button title="Add player" class="btn btn-primary icon" type="button" (click)="onAddPlayer(); [display='block']" #ap>
       <fa-icon [icon]="faNew"></fa-icon>
     </button>

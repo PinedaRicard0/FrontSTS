@@ -3,7 +3,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { TeamsSevice } from 'src/app/services/teams.service';
 import { Team } from 'src/app/models/team.model';
 
-import { faPencilAlt, faUserPlus, faLongArrowAltRight } from '@fortawesome/free-solid-svg-icons';
+import { faPencilAlt, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { CategoriesService } from 'src/app/services/categories.service';
 import { Category } from 'src/app/models/category.model';
 
@@ -16,7 +16,6 @@ export class TeamComponent implements OnInit {
   //Icons
   faEdit = faPencilAlt;
   faAddUser = faUserPlus;
-  faGreaterThan = faLongArrowAltRight;
   // End icons
 
   teamCategory: Team[] = [];

@@ -38,6 +38,7 @@ export class MenuComponent implements OnInit {
       else{
         this.teamB.nativeElement.classList.add('show')
       }
+      this.closeUnselectedItems(option);
     }
     else if(option == 'pools'){
       if(this.poolB.nativeElement.classList.contains('show')){
@@ -46,8 +47,10 @@ export class MenuComponent implements OnInit {
       else{
         this.poolB.nativeElement.classList.add('show')
       }
+      this.closeUnselectedItems(option);
     }
     else if(option == 'fields'){
+      this.closeUnselectedItems(option);
       this.router.navigate(['/fields']);
     }
   }
@@ -58,5 +61,22 @@ export class MenuComponent implements OnInit {
 
   loadTeamPoolsCategory(category: number){
     this.router.navigate(['/pools/' + category]);
+  }
+
+  closeUnselectedItems(selectedMenu: string){
+    switch(selectedMenu){
+      case 'fields':{
+        this.teamB.nativeElement.classList.remove('show')
+        this.poolB.nativeElement.classList.remove('show');
+        break;
+      }
+      case 'pools':{
+        this.teamB.nativeElement.classList.remove('show')
+        break;
+      }
+      case 'teams':{
+        this.poolB.nativeElement.classList.remove('show');
+      }
+    }
   }
 }

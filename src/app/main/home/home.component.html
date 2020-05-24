@@ -1,3 +1,11 @@
-<p>
-This is best home ever
-</p>
+<div class="mt-5">
+    <div class="mt-4 mb-4" *ngFor="let c of categories">
+        <button *ngIf="(c.status == null || c.status == 'created')  && !c.canStart" title="Not all pools have minimun 2 teams" type="button" class="btn btn-primary" style="width: 400px;" disabled>
+            Start {{c.name | uppercase}} category
+        </button>
+        <button *ngIf="(c.status == null || c.status == 'created') && c.canStart" type="button" class="btn btn-primary" style="width: 400px;"
+        (click)="InitCategory(c.id)">
+            Start {{c.name | uppercase}} category
+        </button>
+    </div>
+</div>

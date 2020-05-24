@@ -56,4 +56,18 @@ export class CategoriesService {
         )
     }
 
+    public canStartCategory(category: string) {
+        return this.http.get<boolean>(`${environment.apiUrl}categories/canstart/${category}`);
+    }
+
+    public InitiateCategorie(categoryId: string){
+        return this.http.post(`${environment.apiUrl}categories/start`, categoryId);
+    }
+
+    public updateStartedCategory(categoryId: string){
+        debugger;
+        var cat = this.cList.filter(c =>  c.id == Number(categoryId))[0];
+        cat.status = 'started'
+        this.categories.emit(this.cList);
+    }
 }

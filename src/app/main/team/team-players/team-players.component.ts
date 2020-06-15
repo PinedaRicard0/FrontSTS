@@ -48,7 +48,8 @@ export class TeamPlayersComponent implements OnInit {
 
   onSubmit(form: NgForm){
     if(!this.isEditing){
-      let player = new Player(form.value.playerName, Number(this.teamId), form.value.playerNickname);
+      let player = new Player(form.value.playerName, Number(this.teamId),
+                              form.value.playerNickname, form.value.playerDorsal);
       this.ps.createPlayer(player)
         .subscribe(
           res => {
@@ -60,7 +61,8 @@ export class TeamPlayersComponent implements OnInit {
       );
     }
     else{
-      let player = new Player(form.value.playerName, Number(this.teamId), form.value.playerNickname);
+      let player = new Player(form.value.playerName, Number(this.teamId),
+                              form.value.playerNickname, form.value.playerDorsal);
       player.id = this.playerToEdit.id;
       this.ps.updatePlayer(player)
         .subscribe(
@@ -86,7 +88,8 @@ export class TeamPlayersComponent implements OnInit {
     let nn = this.playerToEdit.nickName ?  this.playerToEdit.nickName : "";
     this.playerForm.setValue({
       playerName: this.playerToEdit.name,
-      playerNickname: nn
+      playerNickname: nn,
+      playerDorsal: this.playerToEdit.dorsal
     })
   }
 

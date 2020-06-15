@@ -15,6 +15,7 @@
             *ngFor="let c of categories"
             (click)="loadTeamsCategory(c.id)">{{c.name}}</a>
         </div>
+        <!--pools-->
         <button class="menu-drop btn dropdown-toggle btn-dark" data-toggle="collapse" data-target="#pools"
         (click) = "onMenuButtonClick('pools')">
             <span class="ml-1"><fa-icon [icon]="faPool"></fa-icon>Pools</span>
@@ -23,6 +24,16 @@
             <a class="dropdown-item"
             *ngFor="let c of categories"
             (click)="loadTeamPoolsCategory(c.id)">{{c.name}}</a>
+        </div>
+        <!--matches-->
+        <button class="menu-drop btn dropdown-toggle btn-dark" data-toggle="collapse" data-target="#matches"
+        (click) = "onMenuButtonClick('matches')">
+            <span class="ml-1"><fa-icon [icon]="faPool"></fa-icon>Matches</span>
+        </button>
+        <div id="matches" class="collapse" #matches>
+            <a class="dropdown-item"
+            *ngFor="let c of startedCategories"
+            (click)="loadCategoryMatches(c.id)">{{c.name}}</a>
         </div>
     </nav>
 </div>

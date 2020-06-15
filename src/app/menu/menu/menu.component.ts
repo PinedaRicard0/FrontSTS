@@ -3,6 +3,7 @@ import { Category } from 'src/app/models/category.model';
 import { CategoriesService } from 'src/app/services/categories.service';
 import { Router } from '@angular/router';
 import { faUsersCog, faFlag, faListOl } from '@fortawesome/free-solid-svg-icons';
+import { AlertifyService } from 'src/app/services/alertify.service';
 
 @Component({
   selector: 'app-menu',
@@ -17,15 +18,20 @@ export class MenuComponent implements OnInit {
   faPool = faListOl;
   //End icons
   categories: Category[] = [];
+  startedCategories: Category[] = [];
   @ViewChild('teams') teamB: ElementRef;
   @ViewChild('pools') poolB: ElementRef;
-  constructor(private categoryService: CategoriesService, private router: Router) { }
+  @ViewChild('matches') matchesB: ElementRef;
+  constructor(private categoryService: CategoriesService, private router: Router,
+              private alertify: AlertifyService) { }
 
   ngOnInit() {
     this.categoryService.fetchCategories();
     this.categoryService.categories.
-          subscribe(categories =>
-        this.categories = categories
+          subscribe(categories =>{
+              this.categories = categories
+              this.startedCategories = this.categories.filter(c => c.status != null && c.status == 'started');
+          }
         );
   }
   
@@ -49,6 +55,20 @@ export class MenuComponent implements OnInit {
       }
       this.closeUnselectedItems(option);
     }
+    else if(option == 'matches'){
+      if(this.startedCategories.length > 0){
+        if(this.matchesB.nativeElement.classList.contains('show')){
+            this.matchesB.nativeElement.classList.remove('show')
+          }
+        else{
+          this.matchesB.nativeElement.classList.add('show')
+        }
+        this.closeUnselectedItems(option);
+      }
+      else{
+        this.alertify.error("Not matches available, firts you need to start at least one category")
+      }
+    }
     else if(option == 'fields'){
       this.closeUnselectedItems(option);
       this.router.navigate(['/fields']);
@@ -56,11 +76,15 @@ export class MenuComponent implements OnInit {
   }
 
   loadTeamsCategory(category: number){
-    this.router.navigate(['/teams/' + category]);
+    this.router.navigate([`/teams/${category}`]);
   }
 
   loadTeamPoolsCategory(category: number){
-    this.router.navigate(['/pools/' + category]);
+    this.router.navigate([`/pools/${category}`]);
+  }
+
+  loadCategoryMatches(category: number){
+    this.router.navigate([`/matches/${category}`])
   }
 
   closeUnselectedItems(selectedMenu: string){
@@ -68,15 +92,25 @@ export class MenuComponent implements OnInit {
       case 'fields':{
         this.teamB.nativeElement.classList.remove('show')
         this.poolB.nativeElement.classList.remove('show');
+        this.matchesB.nativeElement.classList.remove('show');
         break;
       }
       case 'pools':{
-        this.teamB.nativeElement.classList.remove('show')
+        this.teamB.nativeElement.classList.remove('show');
+        this.matchesB.nativeElement.classList.remove('show');
         break;
       }
       case 'teams':{
         this.poolB.nativeElement.classList.remove('show');
+        this.matchesB.nativeElement.classList.remove('show');
+        break;
+      }
+      case 'matches':{
+        this.poolB.nativeElement.classList.remove('show');
+        this.teamB.nativeElement.classList.remove('show');
+        break;
       }
     }
   }
+
 }

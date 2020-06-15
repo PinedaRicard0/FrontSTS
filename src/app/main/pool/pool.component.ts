@@ -26,6 +26,7 @@ export class PoolComponent implements OnInit {
         this.categoryId = params['catId'];
         this.ps.getCategoryPoolsAndTeamsStatistics(this.categoryId).subscribe(
           (res : any) => {
+            debugger;
             this.categoryPools = res;
           }
         );

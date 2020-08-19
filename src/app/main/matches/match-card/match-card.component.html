@@ -1,0 +1,65 @@
+<div class="container">
+  <div class="row">
+    <div class="mt-2 mb-4 col-sm-10 matchCard">
+      <div class="container">
+        <div class="row ">
+          <div class="col-sm-4 flexCentered">
+            <p>{{ match.teamOneName | uppercase }} ({{match.teamOneGoals}})</p>
+          </div>
+          <div class="col-sm-4 flexCentered">
+            <p>VS</p>
+          </div>
+          <div class="col-sm-4 flexCentered">
+            <p>{{ match.teamTwoName | uppercase }} ({{match.teamTwoGoals}})</p>
+          </div>
+        </div>
+        <div class="row flexCentered" *ngIf="!isEditing">
+          <span title="Game Date" *ngIf="match.gameDate"> <fa-icon [icon]="faDate"></fa-icon> {{match.gameDate | date:'medium'}}</span>
+          <span title="Game Date" *ngIf="!match.gameDate"> <fa-icon [icon]="faDate"></fa-icon> _ _ _ _ </span>
+          <span title="Pool" class="mr-5 ml-5"> <fa-icon [icon]="faPool"></fa-icon> {{(match.poolName) ? match.poolName : "_ _ _ _" | uppercase}}</span>
+          <span title="Field"> <fa-icon [icon]="faField"></fa-icon> {{(match.fieldName) ? match.fieldName : "_ _ _ _"  | uppercase}}</span>
+        </div>
+        
+        <div class="row flexCentered" *ngIf="isEditing">
+          <form (ngSubmit)="onSubmit($event, mForm)" #mForm="ngForm" id="matchForm">
+            <label title="Game date" for="matchGame" class="mr-1"><fa-icon [icon]="faDate"></fa-icon></label>
+            <input type="datetime-local" id="matchGame" name="matchGame"
+            required ngModel>
+            <label title="Field" for="matchField" class="mr-1 ml-5"><fa-icon [icon]="faField"></fa-icon></label>
+            <select style="width: 130px" name="matchField" id="matchField" required ngModel>
+              <option value="volvo">Volvo</option>
+              <option value="saab">Saab</option>
+              <option value="mercedes">Mercedes</option>
+              <option value="audi">Audi</option>
+            </select>
+          </form>
+        </div>
+    </div>
+    </div>
+    <div class="col-sm-2">
+      <div class="row" style="margin-top: 5px;">
+        <button title="Edit" class="btn btn-primary icon miniBtn" type="button"
+        (click)="OnEdit()" *ngIf="!isEditing">
+          <fa-icon [icon]="faEdit" transform="left-5 up-3"></fa-icon>
+        </button>
+
+        <button title="Save" class="btn btn-success icon miniBtn" type="submit" form="matchForm"
+        (click)="mForm.ngSubmit.emit()" *ngIf="isEditing">
+          <fa-icon [icon]="faSave" transform="left-5 up-3"></fa-icon>
+        </button>
+      </div>
+
+      <div class="row">
+        <button title="Go to match" class="btn btn-info icon miniBtn" type="button"
+        *ngIf="!isEditing">
+          <fa-icon [icon]="faPlay" transform="left-5 up-3"></fa-icon>
+        </button>
+
+        <button title="Cancel" class="btn btn-secondary icon miniBtn" type="button"
+        *ngIf="isEditing" (click)="isEditing = false;">
+          <fa-icon [icon]="faCancel" transform="left-5 up-3"></fa-icon>
+        </button>
+      </div>  
+    </div>
+  </div>
+</div>

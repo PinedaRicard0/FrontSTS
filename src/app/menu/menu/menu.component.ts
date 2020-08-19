@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Category } from 'src/app/models/category.model';
 import { CategoriesService } from 'src/app/services/categories.service';
 import { Router } from '@angular/router';
-import { faUsersCog, faFlag, faListOl } from '@fortawesome/free-solid-svg-icons';
+import { faUsersCog, faFlag, faListOl, faHandshake } from '@fortawesome/free-solid-svg-icons';
 import { AlertifyService } from 'src/app/services/alertify.service';
 
 @Component({
@@ -16,6 +16,7 @@ export class MenuComponent implements OnInit {
   faTeams = faUsersCog;
   faField = faFlag;
   faPool = faListOl;
+  faMatches = faHandshake;
   //End icons
   categories: Category[] = [];
   startedCategories: Category[] = [];

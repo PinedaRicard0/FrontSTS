@@ -1,0 +1,11 @@
+<div class="container">
+  <div *ngIf="currentCategory" class="mt-5">
+    <b>{{currentCategory.name}} Category</b>
+  </div>
+
+  <div *ngIf="categoryMatches && categoryMatches.length > 0">
+    <div *ngFor="let match of categoryMatches">
+      <app-match-card [match]="match"></app-match-card>
+    </div>
+  </div>
+</div>

@@ -46,10 +46,12 @@ export class TeamsSevice {
                     response => {
                         const teamsArray: Team[] = [];
                         let tmpTeam: Team;
-                        response.forEach(function(team){
-                            teamsArray.push(team);
-                        })
-                         return teamsArray;
+                        if(response){
+                            response.forEach(function(team){
+                                teamsArray.push(team);
+                            })
+                        }
+                        return teamsArray;
                     })
             )
             .subscribe(teams => {

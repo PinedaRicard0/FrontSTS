@@ -17,6 +17,8 @@ import { LoginComponent } from './login/login.component';
 import { SpinnerComponent } from './share-components/spinner/spinner.component';
 import { AuthInterceptorService } from './services/auth-interceptor';
 import { PoolComponent } from './main/pool/pool.component';
+import { MatchesComponent } from './main/matches/matches.component';
+import { MatchCardComponent } from './main/matches/match-card/match-card.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { PoolComponent } from './main/pool/pool.component';
     FieldComponent,
     LoginComponent,
     SpinnerComponent,
-    PoolComponent
+    PoolComponent,
+    MatchesComponent,
+    MatchCardComponent
   ],
   imports: [
     BrowserModule,
